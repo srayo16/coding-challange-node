@@ -49,7 +49,17 @@ async function run() {
             const result = await inDoneDatabase.find(query).toArray();
             res.send(result);
         })
-
+        app.get('/todo/:title', async (req, res) => {
+            const title = req.params.title;
+            const result = await database.findOne(title);
+            res.send(result);
+        })
+        app.delete('/deletedata/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await database.deleteOne(query);
+            res.send(result);
+        })
 
 
     } finally {
